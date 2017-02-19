@@ -20,4 +20,9 @@ router.post('/', (req, res, next) => {
     });
 });
 
+router.get('/', function (req, res, next) {
+  console.log('am i in the .get of events');
+  res.render('../views/index.html');
+});
+
 module.exports = router;
