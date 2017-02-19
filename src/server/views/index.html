@@ -1,0 +1,29 @@
+{% extends "_base.html" %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <h1>Event Maintenance</h1>
+    <div class="col-md-12">
+      <form>
+        Event Name: <input id="event_name" type="text" name="fname"><br>
+        Event Description: <input type="text" name="lname"><br>
+        Event Date: <input type="date" name="date"><br>
+        Event Start: <input type="time" name="time_start"></br>
+        Event End: <input type="time" name="time_end"></br>
+        Place: <input type="text" name="location_name"></br>
+        Street: <input type="text" name="street"></br>
+        City: <input type="city" name="city"></br>
+        State: <input type="state" name="state"></br>
+        Zip: <input type="text" name="zip"></br>
+
+
+        <input type="button" value="Save" id="add_event_func">
+      </form>
+    </div>
+    <a href="../event_types.html">Event Types</a>
+  </div>
+
+{% endblock %}

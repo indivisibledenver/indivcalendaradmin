@@ -1,0 +1,21 @@
+{% extends "_base.html" %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <h1>Event Type Maintenance</h1>
+    <div class="col-md-12">
+      <form>
+        Event Type: <input id="event_type_name" type="text" name="event_type_name"><br>
+        Event Type Description: <input type="text" name="event_type_description"></br>
+
+
+        <input type="button" value="Save" id="add_event_type_func">
+      </form>
+      <a href="index.html">Event Management</a>
+    </div>
+  </div>
+
+{% endblock %}
