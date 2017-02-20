@@ -4,8 +4,6 @@ $(document).on('ready', () => {
     console.log('click on event func');
     eve.preventDefault();
 
-    var name = $('#event_name').val();
-    console.log('the event type is: ', name);
     // const classname = $('.nameofclass option:selected').val();
     // const description = $('#description').val();
     // const instructorid = $('.instructorid option:selected').attr('data-instructorid');
@@ -13,11 +11,32 @@ $(document).on('ready', () => {
     // const endtime = converttime($('#end_time').val());
     // const classsize = $('#size').val();
     // const classday = $('#classday').val();
+
+    var name = $('#event_name').val();
+    var date = $('#date').val();
+    var time_start = $('#event_start').val();
+    var time_end = $('#event_end').val();
+    var location_name = $('#location').val();
+    var street = $('#street').val();
+    var city = $('#city').val();
+    var state = $('#state').val();
+    var zip = $('#zip').val();
+    var event_description = $('#event_description').val();
+
     $.ajax({
       type: 'post',
-      url: '/event_type',
+      url: '/events',
       data: {
-        event_name: name
+        event_name: name,
+        date: date,
+        time_start: time_start,
+        time_end: time_end,
+        location_name: location_name,
+        street: street,
+        city: city,
+        state: state,
+        zip: zip,
+        description: event_description
       },
       success: (result) => {
         window.location = '/';
@@ -33,14 +52,16 @@ $(document).on('ready', () => {
     console.log('click on event func');
     eve.preventDefault();
 
-    var event_type = $('#event_type_name').val();
-    console.log('the event type is: ', event_type);
+    var event_type_name = $('#event_type_name').val();
+    var event_type_description = $('#event_type_description').val();
+    console.log('the event type is: ', event_type_name);
 
     $.ajax({
       type: 'post',
-      url: '/event_type',
+      url: '/event_types',
       data: {
-        event_type: name
+        event_type_name: event_type_name,
+        event_type_description: event_type_description
       },
       success: (result) => {
         window.location = '/';

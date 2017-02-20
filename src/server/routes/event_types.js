@@ -7,4 +7,23 @@ router.get('/', function (req, res, next) {
   res.render('../views/event_types/event_types');
 });
 
+router.post('/', function (req, res, next) {
+  console.log('post: ', req.body);
+
+  knex('event_types')
+  .insert(
+    {
+      event_type: req.body.event_type_name,
+      event_type_description: req.body.event_type_description
+    })
+    .then((data) => {
+      res.send({
+        redirect: '/event_types/event_types'
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
 module.exports = router;

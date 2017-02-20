@@ -8,22 +8,69 @@
     <h1>Event Maintenance</h1>
     <div class="col-md-12">
       <form>
-        Event Name: <input id="event_name" type="text" name="fname"><br>
-        Event Description: <input type="text" name="lname"><br>
-        Event Date: <input type="date" name="date"><br>
-        Event Start: <input type="time" name="time_start"></br>
-        Event End: <input type="time" name="time_end"></br>
-        Place: <input type="text" name="location_name"></br>
-        Street: <input type="text" name="street"></br>
-        City: <input type="city" name="city"></br>
-        State: <input type="state" name="state"></br>
-        Zip: <input type="text" name="zip"></br>
+        Event Name: <input id="event_name" type="text" name="event_name"><br>
+        Event Description: <input type="text" name="event_description" id="event_description"><br>
+        Event Date: <input type="date" name="date" id="date"><br>
+        Event Start: <input type="time" name="time_start" id="event_start"></br>
+        Event End: <input type="time" name="time_end" id="event_end"></br>
+        Place: <input type="text" name="location_name" id="location"></br>
+        Street: <input type="text" name="street" id="street"></br>
+        City: <input type="city" name="city" id="city"></br>
+        State: <input type="state" name="state" id="state"></br>
+        Zip: <input type="text" name="zip" id="zip"></br>
 
 
         <input type="button" value="Save" id="add_event_func">
       </form>
     </div>
     <a href="/event_types">Event Types</a>
+    <div class="row">
+      <div class="col-md-2">
+        <h4>Event Name</h4>
+      </div>
+      <div class="col-md-1">
+        <h4>Date</h4>
+      </div>
+      <div class="col-md-2">
+        <h4>Time Start</h4>
+      </div>
+      <div class="col-md-2">
+        <h4>Time End</h4>
+      </div>
+      <div class="col-md-2">
+        <h4>Location</h4>
+      </div>
+      <div class="col-md-2">
+        <h4>Description</h4>
+      </div>
+    </div>
+
+    {% for event in events %}
+    <div class="row">
+      <div class="col-sm-2">
+        <h6><a href="/events/update/{{event.id}}">{{event.event_name}}</a>
+        </h6>
+      </div>
+      <div class="col-sm-1">
+        <h6>{{event.date}}</h6>
+      </div>
+      <div class="col-sm-2">
+        <h6>{{event.time_start}}</h6>
+      </div>
+      <div class="col-sm-2">
+        <h6>{{event.time_end}}</h6>
+      </div>
+      <div class="col-sm-2">
+        <h6>{{event.location_name}}</h6>
+      </div>
+      <div class="col-sm-2">
+        <h6>{{event.description}}</h6>
+      </div>
+      <div class="col-sm-1">
+        <a href="/events/delete/{{event.id}}">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
   </div>
 
 {% endblock %}
