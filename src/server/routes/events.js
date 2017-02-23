@@ -43,15 +43,30 @@ router.get('/', function (req, res, next) {
     getEvents
   ])
   .then((results) => {
-    console.log('here in the results of events: ', results);
     const renderObject = {};
     renderObject.events = results[0];
-    // renderObject.events = results[0].map(function(el) {
-    //   el.start_time = el.start_time.replace(':', '');
-    //   return el;
-    // });
-    console.log('here is the renderObject', results);
     res.render('../views/index.html', renderObject);
+  });
+});
+
+router.get('/delete/:id', function (req, res, next) {
+
+  const id = parseInt(req.params.id);
+  console.log('the id to delete is: ', id);
+  knex('events')
+  .del()
+  .where('id', id)
+  .returning('*')
+  .then(() => {
+    console.log('delete!');
+    res.render('../views/index.html');
+    // res.send({
+    //   redirect: '/index'
+    // });
+  })
+  .catch((err) => {
+    console.log(err);
+    return next(err);
   });
 });
 

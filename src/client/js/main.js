@@ -1,16 +1,9 @@
 $(document).on('ready', () => {
   console.log('connected to new event on main.js');
+
   $('#add_event_func').on('click', (eve)=> {
     console.log('click on event func');
     eve.preventDefault();
-
-    // const classname = $('.nameofclass option:selected').val();
-    // const description = $('#description').val();
-    // const instructorid = $('.instructorid option:selected').attr('data-instructorid');
-    // const starttime = converttime($('#start_time').val());
-    // const endtime = converttime($('#end_time').val());
-    // const classsize = $('#size').val();
-    // const classday = $('#classday').val();
 
     var name = $('#event_name').val();
     var date = $('#date').val();
@@ -71,4 +64,31 @@ $(document).on('ready', () => {
       }
     });
   });
+
+  // $('#delete_event').on('click', (eve)=> {
+  //   console.log('clicked on delete event func');
+  //   eve.preventDefault();
+  //
+  //   var answer = 1;
+  //
+  //   console.log('this: ', $('#event_id').val());
+  //
+  //   var event_id = $(this).attr('data-id');
+  //
+  //   console.log('here is the event_id for this record: ', event_id);
+  //
+  //   // if (answer) {
+  //   //
+  //   //   $.ajax({
+  //   //     type: 'DELETE',
+  //   //     url: `/event/delete/${event_id}`
+  //   //   })
+  //   //   .done((data) => {
+  //   //     window.location.href = '/';
+  //   //   })
+  //   //   .fail((err) => {
+  //   //     console.log(err);
+  //   //   });
+  //   // }
+  // });
 });

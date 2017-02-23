@@ -10,12 +10,25 @@
       <form>
         Event Type: <input id="event_type_name" type="text" name="event_type_name"><br>
         Event Type Description: <input type="text" name="event_type_description" id="event_type_description"></br>
-
-
         <input type="button" value="Save" id="add_event_type_func">
       </form>
-      <a href="\events">Event Management</a>
+      <a href="\">Event Management</a>
     </div>
+    {% for types in event_types %}
+    <div class="row">
+      <div class="col-sm-2">
+        <h6><a href="/events/update/{{types.id}}">{{types.event_type}}</a>
+        </h6>
+      </div>
+      <div class="col-sm-5">
+        <h6>{{types.event_type_description}}</h6>
+      </div>
+      <div class="col-sm-1">
+        <a href="/event_types/delete/{{types.id}}"  id="delete_event">Delete</a>
+      <input type="hidden" data-id="{{types.id}}" name="event_tpye_id" id="event_type_id">
+      </div>
+    </div>
+    {% endfor %}
   </div>
 
 {% endblock %}

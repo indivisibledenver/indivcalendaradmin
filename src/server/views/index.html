@@ -67,7 +67,8 @@
         <h6>{{event.description}}</h6>
       </div>
       <div class="col-sm-1">
-        <a href="/events/delete/{{event.id}}">Delete</a>
+        <a href="/events/delete/{{event.id}}"  id="delete_event">Delete</a>
+      <input type="hidden" data-id="{{event.id}}" name="event_id" id="event_id">  
       </div>
     </div>
     {% endfor %}
