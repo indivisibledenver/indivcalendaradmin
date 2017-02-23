@@ -8,9 +8,9 @@
     <h1>Event Maintenance</h1>
     <div class="col-md-12">
       <form>
-        Event Type: <select>
+        Event Type: <select id="event_type">
         {% for type in types %}
-          <option value="{{type}}">{{type.event_type}}</option>
+          <option value="{{type.id}}">{{type.event_type}}</option>
         {% endfor %}
       </select><br>
         Event Name: <input id="event_name" type="text" name="event_name"><br>

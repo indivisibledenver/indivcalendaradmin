@@ -5,7 +5,7 @@ const knex = require('../db/knex');
 router.post('/', (req, res, next) => {
   console.log('post: ', req.body);
 
-  var date_created = '12:34:56';
+  var date_created = '12:34';
 
   knex('events')
   .insert(
@@ -19,8 +19,8 @@ router.post('/', (req, res, next) => {
       city: req.body.city,
       state: req.body.state,
       zip: req.body.zip,
-      description: req.body.description
-
+      description: req.body.description,
+      event_type_id: req.body.event_type_id
     })
     .then((data) => {
       res.send({

@@ -15,10 +15,11 @@ $(document).on('ready', () => {
     var state = $('#state').val();
     var zip = $('#zip').val();
     var event_description = $('#event_description').val();
+    var event_type_id = $('#event_type').val();
 
     $.ajax({
       type: 'post',
-      url: '/events',
+      url: '/',
       data: {
         event_name: name,
         date: date,
@@ -29,7 +30,8 @@ $(document).on('ready', () => {
         city: city,
         state: state,
         zip: zip,
-        description: event_description
+        description: event_description,
+        event_type_id: event_type_id
       },
       success: (result) => {
         window.location = '/';
