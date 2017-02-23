@@ -8,6 +8,11 @@
     <h1>Event Maintenance</h1>
     <div class="col-md-12">
       <form>
+        Event Type: <select>
+        {% for type in types %}
+          <option value="{{type}}">{{type.event_type}}</option>
+        {% endfor %}
+      </select><br>
         Event Name: <input id="event_name" type="text" name="event_name"><br>
         Event Description: <input type="text" name="event_description" id="event_description"><br>
         Event Date: <input type="date" name="date" id="date"><br>
@@ -18,8 +23,6 @@
         City: <input type="city" name="city" id="city"></br>
         State: <input type="state" name="state" id="state"></br>
         Zip: <input type="text" name="zip" id="zip"></br>
-
-
         <input type="button" value="Save" id="add_event_func">
       </form>
     </div>
@@ -68,7 +71,7 @@
       </div>
       <div class="col-sm-1">
         <a href="/events/delete/{{event.id}}"  id="delete_event">Delete</a>
-      <input type="hidden" data-id="{{event.id}}" name="event_id" id="event_id">  
+      <input type="hidden" data-id="{{event.id}}" name="event_id" id="event_id">
       </div>
     </div>
     {% endfor %}

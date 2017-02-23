@@ -38,13 +38,16 @@ router.get('/', function (req, res, next) {
   function getAll(tableName) {return knex(tableName).select();}
 
   let getEvents = getAll('events');
+  let getTypes = getAll('event_types');
 
   Promise.all([
-    getEvents
+    getEvents,
+    getTypes
   ])
   .then((results) => {
     const renderObject = {};
     renderObject.events = results[0];
+    renderObject.types = results[1];
     res.render('../views/index.html', renderObject);
   });
 });
