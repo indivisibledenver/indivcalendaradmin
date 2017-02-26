@@ -67,6 +67,27 @@ $(document).on('ready', () => {
     });
   });
 
+  //add event type func
+  $('#day').on('click', (eve)=> {
+    console.log('click on day func');
+    eve.preventDefault();
+
+    // $.ajax({
+    //   type: 'post',
+    //   url: '/event_types',
+    //   data: {
+    //     event_type_name: event_type_name,
+    //     event_type_description: event_type_description
+    //   },
+    //   success: (result) => {
+    //     window.location = '/';
+    //   },
+    //   error: (error) => {
+    //     console.log(error);
+    //   }
+    // });
+  });
+
   // $('#delete_event').on('click', (eve)=> {
   //   console.log('clicked on delete event func');
   //   eve.preventDefault();
