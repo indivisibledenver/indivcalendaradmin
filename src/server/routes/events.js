@@ -6,12 +6,21 @@ router.post('/', (req, res, next) => {
   console.log('post: ', req.body);
 
   var date_created = '12:34';
+  var date_month = req.body.date.slice(5,7);
+  var date_day = req.body.date.slice(8,10);
+  var date_year = req.body.date.slice(0,4);
+
+  console.log('day: ', date_day);
+  console.log('month: ', date_month);
+  console.log('year: ', date_year);
 
   knex('events')
   .insert(
     {
       event_name: req.body.event_name,
-      date: req.body.date,
+      month: date_month,
+      date: date_day,
+      year: date_year,
       time_start: req.body.time_start,
       time_end: req.body.time_end,
       location_name: req.body.location_name,

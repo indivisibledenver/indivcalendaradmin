@@ -88,6 +88,14 @@ $(document).on('ready', () => {
     // });
   });
 
+  //add event type func
+  $('#day').on('click', (eve)=> {
+    console.log('click on day func');
+    eve.preventDefault();
+
+  });
+
+
   // $('#delete_event').on('click', (eve)=> {
   //   console.log('clicked on delete event func');
   //   eve.preventDefault();

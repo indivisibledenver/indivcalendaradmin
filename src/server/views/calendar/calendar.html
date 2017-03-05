@@ -8,6 +8,34 @@
         <div class="cal1"></div>
     <div>
       <h5>here are the events</h5>
+
+      {% for event in events %}
+      <div class="row">
+        <div class="col-sm-2">
+          <h6><a href="/events/update/{{event.id}}">{{event.event_name}}</a>
+          </h6>
+        </div>
+        <div class="col-sm-1">
+          <h6>{{event.date}}</h6>
+        </div>
+        <div class="col-sm-2">
+          <h6>{{event.time_start}}</h6>
+        </div>
+        <div class="col-sm-2">
+          <h6>{{event.time_end}}</h6>
+        </div>
+        <div class="col-sm-2">
+          <h6>{{event.location_name}}</h6>
+        </div>
+        <div class="col-sm-2">
+          <h6>{{event.description}}</h6>
+        </div>
+        <div class="col-sm-1">
+          <a href="/events/delete/{{event.id}}"  id="delete_event">Delete</a>
+        <input type="hidden" data-id="{{event.id}}" name="event_id" id="event_id">
+        </div>
+      </div>
+      {% endfor %}
     </div>
   </div>
 

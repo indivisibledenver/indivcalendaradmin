@@ -11,27 +11,43 @@ $(document).ready( function() {
     // moment.locale('ru');
 
     // Here's some magic to make sure the dates are happening this month.
-    var thisMonth = moment().format('YYYY-MM');
+
+    //Create a date object that will track against the original date in JSON mode as well as the currently viewed date
+    var Date_Manager = {};
+    Date_Manager.date = new Date();  //store the JSON date for reference
+    Date_Manager.todays_month = Date_Manager.date.getMonth() + 1;  //for the current month that comes from date
+    Date_Manager.viewed_month = Date_Manager.date.getMonth() + 1; //for the currently viewed month on the calendar
+    console.log('date manager ', Date_Manager);
+
+    //in getMonth() - January = 0!
+    //console.log("this month is: ", thisMonth);
     // Events to load into calendar
 
     // here is where you will make a db call.
-    //
+    var eventArrayTemp = getEvents(Date_Manager.todays_month);
 
-    // eventArray =
-    var eventArray = [
-      {
-          title: 'Multi-Day Event',
-          endDate: thisMonth + '-14',
-          startDate: thisMonth + '-10'
-      }, {
-          endDate: thisMonth + '-23',
-          startDate: thisMonth + '-21',
-          title: 'Another Multi-Day Event'
-      }, {
-          date: thisMonth + '-22',
-          title: 'Single Day Event'
-      }
-    ];
+    function getEvents(month_num) {
+      var EventArrays = [];
+      console.log('in the getEvents()');
+      $.ajax({
+        type: 'post',
+        url: '/calendar/month/' + month_num,
+        data: {
+          month: month_num
+        },
+        success: (result) => {
+          console.log('result from events is: ', result);
+
+      tempEvents = result;
+      console.log('tempEvents: ', tempEvents);
+
+
+    var eventArray = tempEvents.days;
+    console.log('eventArray: ', eventArray);
+    //var eventArray = getMonthEvents();
+
+
+
 
     // The order of the click handlers is predictable. Direct click action
     // callbacks come first: click, nextMonth, previousMonth, nextYear,
@@ -43,18 +59,23 @@ $(document).ready( function() {
         clickEvents: {
             click: function (target) {
                 console.log('Cal-1 clicked: ', target);
+                console.log('Your face doesn\'t know how to respond');
             },
             today: function () {
                 console.log('Cal-1 today');
             },
             nextMonth: function () {
                 console.log('Cal-1 next month');
+                Date_Manager.viewed_month += 1;
+                console.log('next month: ', Date_Manager);
             },
             previousMonth: function () {
                 console.log('Cal-1 previous month');
+                Date_Manager.viewed_month = 1;
             },
             onMonthChange: function () {
                 console.log('Cal-1 month changed');
+                console.log('on Month Change: ', Date_Manager);
             },
             nextYear: function () {
                 console.log('Cal-1 next year');
@@ -157,4 +178,11 @@ $(document).ready( function() {
             calendars.clndr3.forward();
         }
     });
+
+  },
+  error: (error) => {
+    console.log('here is the error: ', error);
+  }
+});
+}
 });
