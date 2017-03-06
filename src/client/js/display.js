@@ -58,8 +58,19 @@ $(document).ready( function() {
         events: eventArray,
         clickEvents: {
             click: function (target) {
-                console.log('Cal-1 clicked: ', target);
-                console.log('Your face doesn\'t know how to respond');
+                //this is a moment object - here is the attribute that pulls out the formatted date.
+                console.log('Cal-1 clicked: ', target.date._i);
+                $.ajax({
+                  type: 'GET',
+                  url: '/day/' + target.date._i,
+                  success: (result) => {
+                    console.log('results from day: ', result.events[0].event_name);
+                    $('#show_event').text(result.events[0].event_name);
+                  },
+                  error: (error) => {
+                    console.log(error);
+                  }
+                });
             },
             today: function () {
                 console.log('Cal-1 today');
@@ -104,63 +115,6 @@ $(document).ready( function() {
         showAdjacentMonths: true,
         adjacentDaysChangeMonth: false
     });
-
-    // Calendar 2 uses a custom length of time: 2 weeks paging 7 days
-    // calendars.clndr2 = $('.cal2').clndr({
-    //     lengthOfTime: {
-    //         days: 14,
-    //         interval: 7
-    //     },
-    //     events: eventArray,
-    //     multiDayEvents: {
-    //         singleDay: 'date',
-    //         endDate: 'endDate',
-    //         startDate: 'startDate'
-    //     },
-    //     template: $('#template-calendar').html(),
-    //     clickEvents: {
-    //         click: function (target) {
-    //             console.log('Cal-2 clicked: ', target);
-    //         },
-    //         nextInterval: function () {
-    //             console.log('Cal-2 next interval');
-    //         },
-    //         previousInterval: function () {
-    //             console.log('Cal-2 previous interval');
-    //         },
-    //         onIntervalChange: function () {
-    //             console.log('Cal-2 interval changed');
-    //         }
-    //     }
-    // });
-
-    // Calendar 3 renders two months at a time, paging 1 month
-    // calendars.clndr3 = $('.cal3').clndr({
-    //     lengthOfTime: {
-    //         months: 2,
-    //         interval: 1
-    //     },
-    //     events: eventArray,
-    //     multiDayEvents: {
-    //         endDate: 'endDate',
-    //         startDate: 'startDate'
-    //     },
-    //     clickEvents: {
-    //         click: function (target) {
-    //             console.log('Cal-3 clicked: ', target);
-    //         },
-    //         nextInterval: function () {
-    //             console.log('Cal-3 next interval');
-    //         },
-    //         previousInterval: function () {
-    //             console.log('Cal-3 previous interval');
-    //         },
-    //         onIntervalChange: function () {
-    //             console.log('Cal-3 interval changed');
-    //         }
-    //     },
-    //     template: $('#template-calendar-months').html()
-    // });
 
     // Bind all clndrs to the left and right arrow keys
     $(document).keydown( function(e) {

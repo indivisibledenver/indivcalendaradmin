@@ -61,6 +61,43 @@ router.get('/', function (req, res, next) {
   });
 });
 
+function getFormattedDate(date_string) {
+  console.log('here is the unformatted date: ', date_string);
+  var date_object = {};
+  date_object.year = date_string.slice(0,4);
+  date_object.month = date_string.slice(5,7);
+  date_object.day = date_string.slice(8,10);
+  return date_object;
+}
+
+router.get('/day/:id', function (req, res, next) {
+  console.log('.get of events for day');
+
+  var dateObj = getFormattedDate(req.params.id);
+
+  console.log('here is the date object: ', dateObj);
+
+  function getAllEventsByDay(tableName) {return knex(tableName)
+  .where({
+  year: dateObj.year,
+  month: dateObj.month,
+  date: dateObj.day
+  })
+  .select('event_name');}
+  //
+  let getEventsForDay = getAllEventsByDay('events');
+
+  Promise.all([
+    getEventsForDay
+  ])
+  .then((results) => {
+    console.log('you are in the results: ', results);
+    const renderObject = {};
+    renderObject.events = results[0];
+    res.send(renderObject);
+  });
+});
+
 router.get('/delete/:id', function (req, res, next) {
 
   const id = parseInt(req.params.id);
@@ -72,9 +109,6 @@ router.get('/delete/:id', function (req, res, next) {
   .then(() => {
     console.log('delete!');
     res.render('../views/index.html');
-    // res.send({
-    //   redirect: '/index'
-    // });
   })
   .catch((err) => {
     console.log(err);
