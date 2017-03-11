@@ -6,22 +6,12 @@ $(document).ready( function() {
         'Welcome to the CLNDR demo. Click around on the calendars and' +
         'the console will log different events that fire.');
 
-    // Assuming you've got the appropriate language files,
-    // clndr will respect whatever moment's language is set to.
-    // moment.locale('ru');
-
-    // Here's some magic to make sure the dates are happening this month.
-
     //Create a date object that will track against the original date in JSON mode as well as the currently viewed date
     var Date_Manager = {};
     Date_Manager.date = new Date();  //store the JSON date for reference
     Date_Manager.todays_month = Date_Manager.date.getMonth() + 1;  //for the current month that comes from date
     Date_Manager.viewed_month = Date_Manager.date.getMonth() + 1; //for the currently viewed month on the calendar
     console.log('date manager ', Date_Manager);
-
-    //in getMonth() - January = 0!
-    //console.log("this month is: ", thisMonth);
-    // Events to load into calendar
 
     // here is where you will make a db call.
     var eventArrayTemp = getEvents(Date_Manager.todays_month);
@@ -38,7 +28,7 @@ $(document).ready( function() {
         success: (result) => {
           console.log('result from events is: ', result);
 
-      tempEvents = result;
+      var tempEvents = result;
       console.log('tempEvents: ', tempEvents);
 
 
@@ -47,13 +37,6 @@ $(document).ready( function() {
     //var eventArray = getMonthEvents();
 
 
-
-
-    // The order of the click handlers is predictable. Direct click action
-    // callbacks come first: click, nextMonth, previousMonth, nextYear,
-    // previousYear, nextInterval, previousInterval, or today. Then
-    // onMonthChange (if the month changed), inIntervalChange if the interval
-    // has changed, and finally onYearChange (if the year changed).
     calendars.clndr1 = $('.cal1').clndr({
         events: eventArray,
         clickEvents: {
@@ -64,8 +47,22 @@ $(document).ready( function() {
                   type: 'GET',
                   url: '/day/' + target.date._i,
                   success: (result) => {
-                    console.log('results from day: ', result.events[0].event_name);
-                    $('#show_event').text(result.events[0].event_name);
+                    console.log('results from day: ', result.events[0]);
+
+                    $('#show_event').html(result.events[0].event_name).addClass('day_event');
+
+                    $('#description').html(result.events[0].description).addClass('description');
+
+                    $('#time_start').html(result.events[0].time_start).addClass('start');
+
+                    $('#time_end').html(result.events[0].time_end).addClass('end');
+
+                    $('#location').html(result.events[0].location_name).addClass('location');
+
+                    $('#street').html(result.events[0].street).addClass('street');
+
+                    $('#city').html(result.events[0].city).addClass('city');
+
                   },
                   error: (error) => {
                     console.log(error);

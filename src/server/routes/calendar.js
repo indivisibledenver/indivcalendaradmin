@@ -8,15 +8,8 @@ router.post('/month/:id', function(req, res, next) {
   var month = parseInt(req.params.id);
   console.log('I\'m returning the month: ', month);
 
-  // function getDays(tableName, monthNumber) {
-  //   console.log('in getDays');
-  //   var results = knex(tableName).whereRaw('month = ?', [monthNumber]).select('date');
-  //   console.log('results: ', results);
-  //   return results;
-  // }
-
   function pullEvents(tableName){
-    // return knex(tableName).whereRaw('month = ?', [monthNumber]).select('date', 'month', 'year')
+
     return knex(tableName).select();}
 
   let getDays = pullEvents('events');
@@ -56,25 +49,25 @@ router.post('/month/:id', function(req, res, next) {
   });
 });
 
-router.get('/day/:id', function(req, res, next) {
-  console.log('the day clicked is: ', req);
-
-  //function getAll(tableName) {return knex(tableName).select();}
-
-  function getAll(tableName) {return knex(tableName).select();}
-
-  let getEvents = getAll('events');
-  //
-  // Promise.all([
-  //   getEvents
-  // ])
-  // .then((results) => {
-  //   const renderObject = {};
-  //   renderObject.events = results[0];
-  //   res.render('../views/index.html', renderObject);
-  // });
-
-});
+// router.get('/day/:id', function(req, res, next) {
+//   console.log('the day clicked is: ', req);
+//
+//   //function getAll(tableName) {return knex(tableName).select();}
+//
+//   function getAll(tableName) {return knex(tableName).select();}
+//
+//   let getEvents = getAll('events');
+//   //
+//   // Promise.all([
+//   //   getEvents
+//   // ])
+//   // .then((results) => {
+//   //   const renderObject = {};
+//   //   renderObject.events = results[0];
+//   //   res.render('../views/index.html', renderObject);
+//   // });
+//
+// });
 
 router.get('/', function (req, res, next) {
   console.log('i am in the .get of calendar');
