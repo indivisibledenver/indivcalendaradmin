@@ -1,8 +1,57 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 13px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  font-weight: bold;
+  color: #blue;
+}
+
+.admin_menu {
+  padding-bottom: 40px;
+}
+
+.admin_link{
+  padding-right: 55px;
+}
+
+.page_title {
+  float;
+  font-weight: bold;
+  font-size: 24px;
+  padding-bottom: 40px;
+  color: #33cc33;
+}
+
+label {
+  display: inline-block;
+  width: 100px;
+  text-align: left;
+  font: bold;
+}​
+
+.headers {
+  padding-top: 55px;
+}
+
+.table_header {
+  font-weight: bold;
+  font-size: 15px;
+  color: #33cc33;
+}
+
+.delete_event {
+  padding-top: 5px;
+}
+
+.results {
+  display: inline-block;
+  text-align: left;
+  padding-top: 15px;
+}
+
+button {
+  float;
+  margin: 150px;
 }

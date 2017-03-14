@@ -3,24 +3,20 @@ const router = express.Router();
 const knex = require('../db/knex');
 
 router.post('/', (req, res, next) => {
-  console.log('post: ', req.body);
 
   var date_created = '12:34';
   var date_month = req.body.date.slice(5,7);
   var date_day = req.body.date.slice(8,10);
   var date_year = req.body.date.slice(0,4);
-
-  console.log('day: ', date_day);
-  console.log('month: ', date_month);
-  console.log('year: ', date_year);
-
+  console.log('here is the date: ', req.body.date);
   knex('events')
   .insert(
     {
       event_name: req.body.event_name,
       month: date_month,
-      date: date_day,
+      day: date_day,
       year: date_year,
+      date: req.body.date,
       time_start: req.body.time_start,
       time_end: req.body.time_end,
       location_name: req.body.location_name,
@@ -45,7 +41,7 @@ router.get('/', function (req, res, next) {
   console.log('am i in the .get of events');
 
   function getAll(tableName) {return knex(tableName).select();}
-
+  function onlyDate(dateArray) {dateArray.map(dateArray.slice(0,11));}
   let getEvents = getAll('events');
   let getTypes = getAll('event_types');
 
@@ -57,6 +53,7 @@ router.get('/', function (req, res, next) {
     const renderObject = {};
     renderObject.events = results[0];
     renderObject.types = results[1];
+    console.log('events: ', results[0]);
     res.render('../views/index.html', renderObject);
   });
 });
@@ -81,7 +78,7 @@ router.get('/day/:id', function (req, res, next) {
   .where({
   year: dateObj.year,
   month: dateObj.month,
-  date: dateObj.day
+  day: dateObj.day
   })
   .select('event_name', 'month', 'date', 'year', 'time_start', 'time_end','location_name', 'street', 'city', 'description');}
   //
@@ -102,13 +99,44 @@ router.get('/delete/:id', function (req, res, next) {
 
   const id = parseInt(req.params.id);
   console.log('the id to delete is: ', id);
+
   knex('events')
   .del()
   .where('id', id)
   .returning('*')
   .then(() => {
     console.log('delete!');
-    res.render('../views/index.html');
+    res.send('1');
+  })
+  .catch((err) => {
+    console.log(err);
+    return next(err);
+  });
+});
+
+router.get('/update/:id', function (req, res, next) {
+
+  const id = parseInt(req.params.id);
+  function getAll(tableName) {return knex(tableName).select();}
+
+  function getEvent(event_id) {return knex('events')
+    .where('id', event_id)
+    .select('*');}
+
+  let getEventRecord = getEvent(id);
+  let getTypes = getAll('event_types');
+
+  Promise.all([
+    getEventRecord,
+    getTypes
+  ])
+  .then((results) => {
+    console.log('update: ', results);
+    const renderObject = {};
+    renderObject.events = results[0];
+    renderObject.types = results[1];
+    console.log('event: ', renderObject.events);
+    res.render('../views/meetings/updateEvent.html', renderObject);
   })
   .catch((err) => {
     console.log(err);

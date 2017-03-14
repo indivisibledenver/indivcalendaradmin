@@ -67,59 +67,41 @@ $(document).on('ready', () => {
     });
   });
 
-  //add event type func
-  $('#day').on('click', (eve)=> {
-    console.log('click on day func');
-    eve.preventDefault();
+  $('.delete_event').on('click', function(event) {
+    event.preventDefault();
+    const $url = $(this).attr("href");
 
-    // $.ajax({
-    //   type: 'post',
-    //   url: '/event_types',
-    //   data: {
-    //     event_type_name: event_type_name,
-    //     event_type_description: event_type_description
-    //   },
-    //   success: (result) => {
-    //     window.location = '/';
-    //   },
-    //   error: (error) => {
-    //     console.log(error);
-    //   }
-    // });
+    console.log('you clicked delete event for id: ', $url );
+
+    $.ajax({
+      type: 'get',
+      url: $url
+    })
+    .done((data) => {
+      location.reload();
+    })
+    .fail((error) => {
+      console.log(error);
+    });
   });
 
-  //add event type func
-  $('#day').on('click', (eve)=> {
-    console.log('click on day func');
-    eve.preventDefault();
-
-  });
-
-
-  // $('#delete_event').on('click', (eve)=> {
-  //   console.log('clicked on delete event func');
-  //   eve.preventDefault();
+  // $('.update_event').on('click', function(event) {
+  //   event.preventDefault();
+  //   const $url = $(this).attr("href");
   //
-  //   var answer = 1;
+  //   console.log('you clicked to update event id: ', $url );
   //
-  //   console.log('this: ', $('#event_id').val());
+  //   $.ajax({
+  //       type: 'get',
+  //       url: $url,
+  //     success: (result) => {
+  //       // window.location('/meetings/updateEvent.html');
+  //       console.log('success returned: ', result.event);
   //
-  //   var event_id = $(this).attr('data-id');
-  //
-  //   console.log('here is the event_id for this record: ', event_id);
-  //
-  //   // if (answer) {
-  //   //
-  //   //   $.ajax({
-  //   //     type: 'DELETE',
-  //   //     url: `/event/delete/${event_id}`
-  //   //   })
-  //   //   .done((data) => {
-  //   //     window.location.href = '/';
-  //   //   })
-  //   //   .fail((err) => {
-  //   //     console.log(err);
-  //   //   });
-  //   // }
+  //     },
+  //     error: (error) => {
+  //       console.log(error);
+  //     }
+  //   });
   // });
 });

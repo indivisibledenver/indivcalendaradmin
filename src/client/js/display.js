@@ -34,38 +34,49 @@ $(document).ready( function() {
 
     var eventArray = tempEvents.days;
     console.log('eventArray: ', eventArray);
-    //var eventArray = getMonthEvents();
-
 
     calendars.clndr1 = $('.cal1').clndr({
         events: eventArray,
         clickEvents: {
             click: function (target) {
                 //this is a moment object - here is the attribute that pulls out the formatted date.
-                console.log('Cal-1 clicked: ', target.date._i);
                 $.ajax({
                   type: 'GET',
                   url: '/day/' + target.date._i,
                   success: (result) => {
-                    console.log('results from day: ', result.events[0]);
+                    if(result.events[0] !== undefined){
 
-                    $('#show_event').html(result.events[0].event_name).addClass('day_event');
+                      $('#show_event').html(result.events[0].event_name).addClass('day_event');
 
-                    $('#description').html(result.events[0].description).addClass('description');
+                      $('#description').html(result.events[0].description).addClass('description');
 
-                    $('#time_start').html(result.events[0].time_start).addClass('start');
+                      $('#time_start').html(result.events[0].time_start).addClass('start');
 
-                    $('#time_end').html(result.events[0].time_end).addClass('end');
+                      $('#time_end').html(result.events[0].time_end).addClass('end');
 
-                    $('#location').html(result.events[0].location_name).addClass('location');
+                      $('#location').html(result.events[0].location_name).addClass('location');
 
-                    $('#street').html(result.events[0].street).addClass('street');
+                      $('#street').html(result.events[0].street).addClass('street');
 
-                    $('#city').html(result.events[0].city).addClass('city');
+                      $('#city').html(result.events[0].city).addClass('city');
+                    } else {
+                      $('#show_event').html("").addClass('day_event');
 
+                      $('#description').html("").addClass('description');
+
+                      $('#time_start').html("").addClass('start');
+
+                      $('#time_end').html("").addClass('end');
+
+                      $('#location').html("").addClass('location');
+
+                      $('#street').html("").addClass('street');
+
+                      $('#city').html("").addClass('city');
+                    }
                   },
                   error: (error) => {
-                    console.log(error);
+                    console.log('you are in the error');
                   }
                 });
             },
@@ -129,6 +140,34 @@ $(document).ready( function() {
             calendars.clndr3.forward();
         }
     });
+
+    function dayOnCalendar(string) {
+      //calendar-day-2017-03-15
+      return "calendar-day-" + string.date;
+    }
+
+    function getEventData($control) {
+      $.ajax({
+        type: 'GET',
+        url: '/day/',
+        //  + target.date._i,
+        success: (result) => {
+          if(result.events[0] !== undefined){
+
+            $('#show_event').html(result.events[0].event_name).addClass('day_event');
+
+          }
+        },
+        error: (error) => {
+          console.log('you are in the error');
+        }
+      });
+    }
+
+    var controlStrings = eventArray.map(dayOnCalendar);
+
+    console.log('controlStrings: ', controlStrings);
+    controlStrings.map(getEventData);
 
   },
   error: (error) => {
