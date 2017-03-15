@@ -59,7 +59,7 @@ router.get('/day/:id', function(req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-  console.log('i am in the .get of calendar');
+  console.log('i am in the .get of calendar!!!!');
 
   function getAll(tableName) {return knex(tableName).select();}
 
@@ -71,6 +71,7 @@ router.get('/', function (req, res, next) {
   .then((results) => {
     const renderObject = {};
     renderObject.events = results[0];
+    console.log('here are the results from / calendar: ', renderObject.events);
     res.render('../views/calendar/calendar.html', renderObject);
   });
 });
