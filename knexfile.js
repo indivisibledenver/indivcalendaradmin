@@ -25,7 +25,7 @@ module.exports = {
     client: 'postgresql',
     connection: {
       database: 'postgresql-crystalline-13985',
-      user:     'username',
+      user:     'phil',
       password: 'password'
     }
   }
