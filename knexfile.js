@@ -24,7 +24,7 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      database: 'my_db',
+      database: 'postgresql-crystalline-13985',
       user:     'username',
       password: 'password'
     }
