@@ -180,7 +180,7 @@ p {
 }
 .cal1 .clndr .clndr-table tr .day .day-contents {
   box-sizing: border-box;
-  padding: 8px;
+  padding: 4px;
   font-size: 12px;
   text-align: right;
 }

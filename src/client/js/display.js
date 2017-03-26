@@ -11,14 +11,13 @@ $(document).ready( function() {
     Date_Manager.date = new Date();  //store the JSON date for reference
     Date_Manager.todays_month = Date_Manager.date.getMonth() + 1;  //for the current month that comes from date
     Date_Manager.viewed_month = Date_Manager.date.getMonth() + 1; //for the currently viewed month on the calendar
-    console.log('date manager ', Date_Manager);
 
     // here is where you will make a db call.
     var eventArrayTemp = getEvents(Date_Manager.todays_month);
 
     function getEvents(month_num) {
       var EventArrays = [];
-      console.log('in the getEvents()');
+
       $.ajax({
         type: 'post',
         url: '/calendar/month/' + month_num,
@@ -31,19 +30,22 @@ $(document).ready( function() {
       var tempEvents = result;
       console.log('tempEvents: ', tempEvents);
 
-
     var eventArray = tempEvents.days;
+
     console.log('eventArray: ', eventArray);
 
     calendars.clndr1 = $('.cal1').clndr({
         events: eventArray,
         clickEvents: {
             click: function (target) {
+                console.log('here is target: ', target);
                 //this is a moment object - here is the attribute that pulls out the formatted date.
                 $.ajax({
                   type: 'GET',
                   url: '/day/' + target.date._i,
                   success: (result) => {
+                    console.log('results in clickevents: ', result);
+
                     if(result.events[0] !== undefined){
 
                       $('#show_event').html(result.events[0].event_name).addClass('day_event');
@@ -81,7 +83,10 @@ $(document).ready( function() {
                 });
             },
             today: function () {
-                console.log('Cal-1 today');
+                console.log('auto print today Cal-1 today');
+
+                var controlStrings = eventArray.map(dayOnCalendar);
+                controlStrings.map(getEventData);
             },
             nextMonth: function () {
                 console.log('Cal-1 next month');
@@ -91,10 +96,16 @@ $(document).ready( function() {
             previousMonth: function () {
                 console.log('Cal-1 previous month');
                 Date_Manager.viewed_month = 1;
+                var controlStrings = eventArray.map(dayOnCalendar);
+
+                controlStrings.map(getEventData);
             },
             onMonthChange: function () {
                 console.log('Cal-1 month changed');
                 console.log('on Month Change: ', Date_Manager);
+                var controlStrings = eventArray.map(dayOnCalendar);
+
+                controlStrings.map(getEventData);
             },
             nextYear: function () {
                 console.log('Cal-1 next year');
@@ -147,15 +158,18 @@ $(document).ready( function() {
     }
 
     function getEventData($control) {
+      console.log('control: ', $control.substring(13, 23));
+
+      var event_container = 'td.calendar-day-' + $control.substring(13, 23) + ' > div.event-container';
+      //var event_container = 'td.calendar-day-2017-03-16 > div.event-container';
+
       $.ajax({
         type: 'GET',
-        url: '/day/',
-        //  + target.date._i,
+        url: '/day/' + $control.substring(13, 23),
         success: (result) => {
           if(result.events[0] !== undefined){
-
-            $('#show_event').html(result.events[0].event_name).addClass('day_event');
-
+            console.log('results.events: ', result.events[0] );
+            $(event_container).html(result.events[0].event_name)
           }
         },
         error: (error) => {
@@ -166,7 +180,6 @@ $(document).ready( function() {
 
     var controlStrings = eventArray.map(dayOnCalendar);
 
-    console.log('controlStrings: ', controlStrings);
     controlStrings.map(getEventData);
 
   },

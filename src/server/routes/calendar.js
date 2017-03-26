@@ -8,7 +8,7 @@ router.post('/month/:id', function(req, res, next) {
   var month = parseInt(req.params.id);
   console.log('I\'m returning the month: ', month);
 
-  function pullEvents(tableName){return knex(tableName).select();}
+  function pullEvents(tableName){return knex(tableName).select('*');}
 
   let getDays = pullEvents('events');
 
@@ -18,6 +18,7 @@ router.post('/month/:id', function(req, res, next) {
   .then((results) => {
     function formatDate(date, index) {
       console.log('date is: ', date.day);
+      console.log('the date obj is: ', date)
         if(date.day < 10){
           date.day = date.day.toString();
         } else {
@@ -31,11 +32,15 @@ router.post('/month/:id', function(req, res, next) {
         }
         var object = {};
         object.date = [date.year, date.month, date.day].join("-");
+        object.event_title = date.event_name;
         return object;
     }
 
+    console.log('results in calendar: ', results[0]);
     const renderObject = {};
     renderObject.days = results[0].map(formatDate);
+    console.log('here is renderObj thingy: ', renderObject);
+
     res.send(renderObject);
   });
 });

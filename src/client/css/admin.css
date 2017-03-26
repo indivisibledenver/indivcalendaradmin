@@ -16,6 +16,12 @@ a {
   padding-right: 55px;
 }
 
+#event_type_description_option {
+    padding-left: 20px;
+    font-weight: bold;
+    color: #33cc33;
+}
+
 .page_title {
   float;
   font-weight: bold;
@@ -52,6 +58,5 @@ label {
 }
 
 button {
-  float;
   margin: 150px;
 }

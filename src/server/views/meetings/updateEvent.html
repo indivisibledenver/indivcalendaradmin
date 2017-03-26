@@ -1,31 +1,55 @@
-{% extends "_base.html" %}
+{% extends "../_base.html" %}
 
 {% block title %}{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="../css/admin.css">
+{% endblock %}
 
 {% block content %}
 
   <div class="container">
-    <h1>Update Event</h1>
+    <div class="page_title">Update Event</div>
     <div class="col-md-12">
       <form>
-        Event Type: <select id="event_type">
-        {% for type in types %}
-          <option value="{{type.id}}">{{type.event_type}}</option>
+
+            <label for="event_type">Event Type</label>
+            <select id="event_type">
+                {% for type in types %}
+                <option   value="{{type.id}}">{{type.event_type}}</option>
+              {% endfor %}
+            </select><br>
+
+
+          <div class="col-md-12">
+            {% for event in events %}
+          <div class="col-md-4">
+            <label for="event_name">Event Name</label>
+            <input id="event_name" type="text" name="event_name" value="{{event.event_name}}"><br>
+            <label for="event_description">Event Description</label>
+            <input type="text" name="event_description" id="event_description" value="{{event.description}}"><br>
+            <!-- Event Date: <input type="date" name="date" id="date" value="{{event.date}}"><br> -->
+            <label for="event_start">Event Start</label>
+            <input type="time" name="time_start" id="event_start" value="{{event.time_start}}"></br>
+            <label for="event_end">Event End</label>
+            <input type="time" name="time_end" id="event_end" value="{{event.time_end}}"></br>
+          </div>
+          <div class="col-md-6>">
+            <label for="location_name">Place</label>
+            <input type="text" name="location_name" id="location" value="{{event.location_name}}"></br>
+            <label for="street">Street</label>
+            <input type="text" name="street" id="street" value="{{event.street}}"></br>
+            <label for="event_name">City</label>
+            <input type="city" name="city" id="city" value="{{event.city}}"></br>
+            <label for="event_name">State</label>
+            <input type="state" name="state" id="state" value="{{event.state}}"></br>
+            <label for="zip">Zip</label>
+            <input type="text" name="zip" id="zip" value="{{event.zip}}"></br>
+            <input type="button" value="Update" id="update_event_func">
+          </div>
+
         {% endfor %}
-      </select><br>
-        {% for event in events %}
-          Event Name: <input id="event_name" type="text" name="event_name" value="{{event.event_name}}"><br>
-          Event Description: <input type="text" name="event_description" id="event_description" value="{{event.description}}"><br>
-          <!-- Event Date: <input type="date" name="date" id="date" value="{{event.date}}"><br> -->
-          Event Start: <input type="time" name="time_start" id="event_start" value="{{event.time_start}}"></br>
-          Event End: <input type="time" name="time_end" id="event_end" value="{{event.time_end}}"></br>
-          Place: <input type="text" name="location_name" id="location" value="{{event.location_name}}"></br>
-          Street: <input type="text" name="street" id="street" value="{{event.street}}"></br>
-          City: <input type="city" name="city" id="city" value="{{event.city}}"></br>
-          State: <input type="state" name="state" id="state" value="{{event.state}}"></br>
-          Zip: <input type="text" name="zip" id="zip" value="{{event.zip}}"></br>
-          <input type="button" value="Update" id="update_event_func">
-        {% endfor %}
+        </div>
       </form>
     </div>
   </div>

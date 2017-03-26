@@ -85,6 +85,11 @@ $(document).on('ready', () => {
     });
   });
 
+  $(".option_selected").change(function(){
+    $("#event_type_description_option").
+    html($(".option_selected").val());
+});
+
   // $('.update_event').on('click', function(event) {
   //   event.preventDefault();
   //   const $url = $(this).attr("href");

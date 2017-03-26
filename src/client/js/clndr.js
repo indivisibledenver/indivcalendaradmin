@@ -67,6 +67,7 @@
                 "<% var d = j + i * 7; %>" +
                     "<td class='<%= days[d].classes %>'>" +
                         "<div class='day-contents'><%= days[d].day %></div>" +
+                          "<div class='event-container day-event-container-<%= days[d].day %>'></div>" +
                     "</td>" +
                 "<% } %>" +
                 "</tr>" +
@@ -145,8 +146,6 @@
         var constraintStart;
 
         this.element = element;
-
-        console.log('element: ', element);
 
         // Merge the default options with user-provided options
         this.options = $.extend(true, {}, defaults, options);
@@ -394,6 +393,7 @@
         for (var i = 0; i < offset; i++) {
             days.push(days.shift());
         }
+        console.log('in shiftweekdaylabels: '. days);
 
         return days;
     };
@@ -406,7 +406,6 @@
     Clndr.prototype.createDaysObject = function (startDate, endDate) {
         // This array will hold numbers for the entire grid (even the blank
         // spaces).
-        console.log('in createDaysObject');
         var daysArray = [],
             date = startDate.clone(),
             lengthOfInterval = endDate.diff(startDate, 'days'),
@@ -606,7 +605,7 @@
             if ( (day.isSame(start, 'day') || day.isAfter(start, 'day')) && (day.isSame(end, 'day') || day.isBefore(end, 'day')) )
             {
                 eventsToday.push( monthEvents[j] );
-                console.log('here is a chance to enter in titles');
+                console.log('eventsToday: ', eventsToday);
             }
         }
 

@@ -1,7 +1,5 @@
 {% extends "_base.html" %}
 
-{% block title %}{% endblock %}
-
 {% block css %}
   <link rel="stylesheet" href="/css/admin.css">
 {% endblock %}
@@ -13,17 +11,21 @@
       <a href="/event_types" class="admin_link">Event Types Maintenance</a>
       <a href="/calendar" class="admin_link">View Calendar</a>
       <a href="/research" class="admin_link">View Research</a>
+      <a href="/membership" class="admin_link">Membership Maintenance</a>
     </div>
     <div class="page_title">Event Maintenance</div>
     <div class="col-md-12">
       <form>
         <div class="col-md-12">
          <label for="event_type">Event Type</label>
-         <select id="event_type">
+         <select id="event_type" class="option_selected">
+          <option value="">select an event type</option>
         {% for type in types %}
-          <option value="{{type.id}}">{{type.event_type}}</option>
+          <option value="{{type.event_type_description}}">{{type.event_type}}</option>
         {% endfor %}
-        </select><br>
+        </select>
+        <span id="event_type_description_option"></span>
+        <br>
         </div>
         <div class="col-md-4">
         <label for="event_name">Event Name</label>
