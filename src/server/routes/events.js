@@ -65,7 +65,12 @@ router.get('/', function (req, res, next) {
   .then((results) => {
     const renderObject = {};
     renderObject.events = results[0];
-  //  renderObject.events.map(setFormattedTime);
+
+    for(var x = 0; x < results[0].length; x++) {
+      renderObject.events[x].time_start = setFormattedTime(renderObject.events[x].time_start);
+      renderObject.events[x].time_end = setFormattedTime(renderObject.events[x].time_end);
+    }
+
     renderObject.types = results[1];
     res.render('../views/events/event.html', renderObject);
   });
@@ -122,7 +127,6 @@ router.get('/day/:id', function (req, res, next) {
     //can you use 'map' for this instead - would be quicker maybe?
 
     for(var x = 0; x < results[0].length; x++) {
-      console.log('renderObject.events.time_start: ', renderObject.events[x].time_start);
       renderObject.events[x].time_start = setFormattedTime(renderObject.events[x].time_start);
       renderObject.events[x].time_end = setFormattedTime(renderObject.events[x].time_end);
     }

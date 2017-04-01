@@ -41,7 +41,6 @@ $(document).ready( function() {
                       success: (result) => {
 
                         if(result.events[0] !== undefined){
-                          console.log('result events length: ', result.events.length);
                           for (var i = 0; i < result.events.length; i++) {
                             $('.day_events').append('<div class="day_event">' + result.events[i].event_name + '</div><br>');
 
@@ -57,7 +56,9 @@ $(document).ready( function() {
 
                             $('.day_events').append('<span class=".state">, ' + result.events[i].state + '</span><br>');
 
-                            $('.day_events').append('<a class=".url" href=' + result.events[i].url + '>' + result.events[i].url + '</a><br>');
+                            if(result.events[i].url != null) {
+                              $('.day_events').append('<a class=".url" href=' +         result.events[i].url + '>' + result.events[i].url + '</a><br>');
+                            }
                           }
                         } else {
                           $('#show_event').html("").addClass('day_event');
