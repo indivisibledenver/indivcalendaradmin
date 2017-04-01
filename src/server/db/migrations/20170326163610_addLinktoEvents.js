@@ -1,8 +1,11 @@
-
 exports.up = function(knex, Promise) {
-  //for adding links
+    return knex.schema.table('events', function(table) {
+        table.string('url');
+    });
 };
 
 exports.down = function(knex, Promise) {
-  //for adding links
+    return knex.schema.table('events', function(table) {
+        table.dropColumn('url');
+    });
 };

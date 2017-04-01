@@ -45,16 +45,19 @@ $(document).ready( function() {
                           for (var i = 0; i < result.events.length; i++) {
                             $('.day_events').append('<div class="day_event">' + result.events[i].event_name + '</div><br>');
 
-                            $('.day_events').append('<div class=".description">' + result.events[i].description + '</div><br>');
+                            $('.day_events').append('<span class=".event_label">When</span><span class=".start">' + result.events[i].time_start + ' - ' + result.events[i].time_end + '</span><br>');
 
-                            $('.day_events').append('<span class=".start">' + result.events[i].time_start + ' - ' + result.events[i].time_end + '</span><br>');
+                            $('.day_events').append('<span class=".event_label">Description</span><span class=".description">' + result.events[i].description + '</span><br>');
 
-                            $('.day_events').append('<span class=".location">' + result.events[i].location_name + '</span><br>');
+                            $('.day_events').append('<span class=".location">Location ' + result.events[i].location_name + '</span> ');
 
+                            $('.day_events').append('<span class=".event_label"><span class=".street"> ' + result.events[i].street + '</span>');
 
-                            $('.day_events').append('<span class=".street">' + result.events[i].street + '</span><br>');
+                            $('.day_events').append('<span class=".city">, ' + result.events[i].city + '</span>');
 
-                            $('.day_events').append('<span class=".city">' + result.events[i].city + '</span><br>');
+                            $('.day_events').append('<span class=".state">, ' + result.events[i].state + '</span><br>');
+
+                            $('.day_events').append('<a class=".url" href=' + result.events[i].url + '>' + result.events[i].url + '</a><br>');
                           }
                         } else {
                           $('#show_event').html("").addClass('day_event');
@@ -70,6 +73,8 @@ $(document).ready( function() {
                           $('#street').html("").addClass('street');
 
                           $('#city').html("").addClass('city');
+
+                          $('#url').html("").addClass('url');
                         }
                       },
                       error: (error) => {

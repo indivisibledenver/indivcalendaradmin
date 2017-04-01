@@ -3,7 +3,6 @@ const router = express.Router();
 const knex = require('../db/knex');
 
 router.get('/', function (req, res, next) {
-  console.log('am i in the .get of event_types');
 
   function getAll(tableName) {return knex(tableName).select();}
 
@@ -20,7 +19,6 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  console.log('post: ', req.body);
 
   knex('event_types')
   .insert(
@@ -48,7 +46,7 @@ router.get('/delete/:id', function (req, res, next) {
   .returning('*')
   .then(() => {
     console.log('delete from event types!');
-    res.render('../views/index.html');
+    res.render('../views/event_types/event_types.html');
     // res.send({
     //   redirect: '/index'
     // });

@@ -9,12 +9,14 @@
     const events = require('../routes/events');
     const event_types = require('../routes/event_types');
     const calendar = require('../routes/calendar');
-    
+    const login = require('../routes/login');
+
     // *** register routes *** //
     app.use('/', routes);
     app.use('/events', events);
     app.use('/event_types', event_types);
     app.use('/calendar', calendar);
+    app.use('/login', login)
 
   };
 

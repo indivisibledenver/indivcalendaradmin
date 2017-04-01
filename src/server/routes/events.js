@@ -34,16 +34,17 @@ router.post('/', (req, res, next) => {
       state: req.body.state,
       zip: req.body.zip,
       description: req.body.description,
-      event_type_id: results.id
+      event_type_id: results.id,
+      url: req.body.url
     })
     .then((data) => {
       res.send({
-        redirect: '/index'
+        redirect: '/events'
       });
     })
     .catch((err) => {
       // console.error('this erred': err);
-      console.log('the thing is in error');
+      console.log('the thing is in error: ', err);
     });
   });
 });
@@ -78,10 +79,22 @@ function getFormattedDate(date_string) {
   return date_object;
 }
 
-function setFormattedTime() {
-  var suffix = hours >= 12 ? "PM":"AM"; hours = ((hours + 11) % 12 + 1) + suffix;
+function setFormattedTime(hours) {
 
-  return suffix;
+  //assume that you're sending in hours and minutes - e.g. 19:30 or 02:00
+  //take the input hours, parseInt removes anything that's not a number and sends you what it can....17:00:00 is '17'
+  var suffix = parseInt(hours) >= 12 ? "pm":"am";
+
+  //take military time and put it to civilian time for the hours
+  var time_hours = ((parseInt(hours) + 11) % 12 + 1);
+
+  //pull out the minutes using substring from the input....
+  var time_minutes = hours.substring(3, 5);
+
+  //blend all that together and return....
+  var time_string = time_hours.toString() + ':' + time_minutes + suffix;
+
+  return time_string;
 }
 
 router.get('/day/:id', function (req, res, next) {
@@ -94,8 +107,8 @@ router.get('/day/:id', function (req, res, next) {
   month: dateObj.month,
   day: dateObj.day
   })
-  .select('event_name', 'month', 'date', 'year', 'time_start', 'time_end','location_name', 'street', 'city', 'description');}
-  //
+  .select('event_name', 'month', 'date', 'year', 'time_start', 'time_end','location_name', 'street', 'city', 'description', 'url');}
+
   let getEventsForDay = getAllEventsByDay('events');
 
   Promise.all([
@@ -104,6 +117,16 @@ router.get('/day/:id', function (req, res, next) {
   .then((results) => {
     const renderObject = {};
     renderObject.events = results[0];
+
+    //set for loop based on results.length
+    //can you use 'map' for this instead - would be quicker maybe?
+
+    for(var x = 0; x < results[0].length; x++) {
+      console.log('renderObject.events.time_start: ', renderObject.events[x].time_start);
+      renderObject.events[x].time_start = setFormattedTime(renderObject.events[x].time_start);
+      renderObject.events[x].time_end = setFormattedTime(renderObject.events[x].time_end);
+    }
+
     res.send(renderObject);
   });
 });
