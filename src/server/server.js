@@ -5,6 +5,11 @@
   const app = require('./app');
   const debug = require('debug')('herman-express:server');
   const http = require('http');
+  const passport = require('passport');
+  const LocalStrategy = require('passport-local');
+  const TwitterStrategy = require('passport-twitter');
+  const GoogleStrategy = require('passport-google');
+  const FacebookStrategy = require('passport-facebook');
 
   const port = normalizePort(process.env.PORT || '3000');
   app.set('port', port);
