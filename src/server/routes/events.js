@@ -66,7 +66,7 @@ router.get('/', function (req, res, next) {
     renderObject.events = results[0];
   //  renderObject.events.map(setFormattedTime);
     renderObject.types = results[1];
-    res.render('../views/index.html', renderObject);
+    res.render('../views/events/event.html', renderObject);
   });
 });
 
