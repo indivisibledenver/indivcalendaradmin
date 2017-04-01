@@ -603,7 +603,6 @@
             if ( (day.isSame(start, 'day') || day.isAfter(start, 'day')) && (day.isSame(end, 'day') || day.isBefore(end, 'day')) )
             {
                 eventsToday.push( monthEvents[j] );
-                console.log('eventsToday: ', eventsToday);
             }
         }
 

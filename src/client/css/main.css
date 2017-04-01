@@ -1620,10 +1620,10 @@ f@import url(font-awesome.min.css);
 
 	body {
 		background-color: #B20000;
-		background-image: url("images/overlay.png"), -moz-linear-gradient(45deg, #1D173C 15%, #C20939 85%);
-		background-image: url("images/overlay.png"), -webkit-linear-gradient(45deg, #1D173C 15%, #C20939 85%);
-		background-image: url("images/overlay.png"), -ms-linear-gradient(45deg, #1D173C 15%, #C20939 85%);
-		background-image: url("images/overlay.png"), linear-gradient(45deg, #1D173C 15%, #C20939 85%);
+		background-image: url("images/overlay.png"), -moz-linear-gradient(45deg, #1D173C 15%, #0047b2 85%);
+		background-image: url("images/overlay.png"), -webkit-linear-gradient(45deg, #1D173C 15%, #0047b2 85%);
+		background-image: url("images/overlay.png"), -ms-linear-gradient(45deg, #1D173C 15%, #0047b2 85%);
+		background-image: url("images/overlay.png"), linear-gradient(45deg, #1D173C 15%, #0047b2 85%);
 	}
 
 		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
@@ -3235,7 +3235,7 @@ f@import url(font-awesome.min.css);
 		background-color: #ffffff;
 		color: #636363;
 		position: absolute;
-		width: 64em;
+		width: 90em;
 		max-width: calc(100% - 4em);
 		padding: 1em;
 		background-color: #f7f7f7;
@@ -3775,7 +3775,7 @@ f@import url(font-awesome.min.css);
 /* Wrapper */
 
 	#wrapper {
-		width: 64em;
+		width: 90em;
 		max-width: calc(100% - 4em);
 		margin: 0 auto;
 	}
