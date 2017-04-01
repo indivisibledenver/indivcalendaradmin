@@ -4,24 +4,20 @@ const knex = require('../db/knex');
 
 router.post('/', (req, res, next) => {
 
-  console.log('here is the req.body: ', req.body);
 
   var date_created = '12:34';
   var date_month = req.body.date.slice(5,7);
   var date_day = req.body.date.slice(8,10);
   var date_year = req.body.date.slice(0,4);
-  console.log('here is the date: ', req.body.date);
 
   function getEventsByDescription(tableName) {return knex(tableName).where('event_type_description', req.body.event_type_id).select('id');}
 
   let getEventDescrip = getEventsByDescription('event_types');
 
-  console.log('here is the sql: ', getEventDescrip);
 
   Promise.all([
     getEventDescrip
   ]).then((results) => {
-    console.log('results in description: ', results);
   knex('events')
   .insert(
     {
@@ -53,7 +49,6 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/', function (req, res, next) {
-  console.log('am i in the .get of events');
 
   function getEventsOrdered(tableName) {return knex(tableName).select('*').orderBy('date');}
 
@@ -69,14 +64,13 @@ router.get('/', function (req, res, next) {
   .then((results) => {
     const renderObject = {};
     renderObject.events = results[0];
+  //  renderObject.events.map(setFormattedTime);
     renderObject.types = results[1];
-    console.log('events: ', results[0]);
     res.render('../views/index.html', renderObject);
   });
 });
 
 function getFormattedDate(date_string) {
-  console.log('here is the unformatted date: ', date_string);
   var date_object = {};
   date_object.year = date_string.slice(0,4);
   date_object.month = date_string.slice(5,7);
@@ -84,12 +78,15 @@ function getFormattedDate(date_string) {
   return date_object;
 }
 
+function setFormattedTime() {
+  var suffix = hours >= 12 ? "PM":"AM"; hours = ((hours + 11) % 12 + 1) + suffix;
+
+  return suffix;
+}
+
 router.get('/day/:id', function (req, res, next) {
-  console.log('.get of events for day');
 
   var dateObj = getFormattedDate(req.params.id);
-
-  console.log('here is the date object: ', dateObj);
 
   function getAllEventsByDay(tableName) {return knex(tableName)
   .where({
@@ -105,7 +102,6 @@ router.get('/day/:id', function (req, res, next) {
     getEventsForDay
   ])
   .then((results) => {
-    console.log('you are in the results: ', results);
     const renderObject = {};
     renderObject.events = results[0];
     res.send(renderObject);
@@ -115,14 +111,12 @@ router.get('/day/:id', function (req, res, next) {
 router.get('/delete/:id', function (req, res, next) {
 
   const id = parseInt(req.params.id);
-  console.log('the id to delete is: ', id);
 
   knex('events')
   .del()
   .where('id', id)
   .returning('*')
   .then(() => {
-    console.log('delete!');
     res.send('1');
   })
   .catch((err) => {
@@ -148,11 +142,9 @@ router.get('/update/:id', function (req, res, next) {
     getTypes
   ])
   .then((results) => {
-    console.log('update: ', results);
     const renderObject = {};
     renderObject.events = results[0];
     renderObject.types = results[1];
-    console.log('event: ', renderObject.events);
     res.render('../views/meetings/updateEvent.html', renderObject);
   })
   .catch((err) => {

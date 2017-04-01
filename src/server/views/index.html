@@ -1,113 +1,116 @@
-{% extends "_base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.png">
 
-{% block css %}
-  <link rel="stylesheet" href="/css/admin.css">
-{% endblock %}
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/clndr.less">
+    <link rel="stylesheet" href="/css/clndr.css">
+    <link rel="stylesheet" href="/css/calendar.css">
+    {% block css %}{% endblock %}
+  </head>
 
-{% block content %}
+  <body>
 
-  <div class="container">
-    <div class="admin_menu">
-      <a href="/event_types" class="admin_link">Event Types Maintenance</a>
-      <a href="/calendar" class="admin_link">View Calendar</a>
-      <a href="/research" class="admin_link">View Research</a>
-      <a href="/membership" class="admin_link">Membership Maintenance</a>
-    </div>
-    <div class="page_title">Event Maintenance</div>
-    <div class="col-md-12">
-      <form>
-        <div class="col-md-12">
-         <label for="event_type">Event Type</label>
-         <select id="event_type" class="option_selected">
-          <option value="">select an event type</option>
-        {% for type in types %}
-          <option value="{{type.event_type_description}}">{{type.event_type}}</option>
-        {% endfor %}
-        </select>
-        <span id="event_type_description_option"></span>
-        <br>
-        </div>
-        <div class="col-md-4">
-        <label for="event_name">Event Name</label>
-        <input id="event_name" type="text" name="event_name"><br>
-        <label for="event_description">Description</label>
-        <input type="text" name="event_description" id="event_description"><br>
-        <label for="event_date">Date</label>
-        <input type="date" name="date" id="date"><br>
-        <label for="time_start">Starts</label>
-        <input type="time" name="time_start" id="event_start"></br>
-        <label for="time_end">Ends</label>
-        <input type="time" name="time_end" id="event_end"></br>
-      </div>
-      <div class="col-md-4">
-        <label for="location">Place</label>
-        <input type="text" name="location_name" id="location"></br>
-        <label for="street">No. and Street</label>
-        <input type="text" name="street" id="street"></br>
-        <label for="city">City</label>
-        <input type="city" name="city" id="city"></br>
-        <label for="state">State</label>
-        <input type="state" name="state" id="state"></br>
-        <label for="zip">Zip</label>
-        <input type="text" name="zip" id="zip"></br>
-        <div class="admin_button">
-          <input type="button" value="Save" id="add_event_func">
-        </div>
-      </div>
-      </form>
-    </div>
-    <div class="row">
-      <div class="headers">
-      <div class="col-md-2">
-        <div class="table_header">Event Name</div>
-      </div>
-      <div class="col-md-2">
-        <div class="table_header">Date</div>
-      </div>
-      <div class="col-md-1">
-        <div class="table_header"> Start</div>
-      </div>
-      <div class="col-md-1">
-        <div class="table_header"> End</div>
-      </div>
-      <div class="col-md-1">
-        <div class="table_header">Location</div>
-      </div>
-      <div class="col-md-3">
-        <div class="table_header">Description</div>
-      </div>
-    </div>
-    </div>
+		<!-- Wrapper -->
+			<div id="wrapper">
 
-    {% for event in events %}
-    <div class="row">
-      <div class="col-sm-2">
-        <div class="results"><a href="/update/{{event.id}}" class="update_event">{{event.event_name}}</a>
-        </div>
-      </div>
-      <div class="col-sm-2">
-        <div class="results">{{event.month}} / {{event.day}} / {{event.year}}</div>
-      </div>
-      <div class="col-sm-1">
-        <div class="results">{{event.time_start}}</div>
-      </div>
-      <div class="col-sm-1">
-        <div class="results">{{event.time_end}}</div>
-      </div>
-      <div class="col-sm-1">
-        <div class="results">{{event.location_name}}</div>
-      </div>
-      <div class="col-sm-3">
-        <div class="results">{{event.description}}</div>
-      </div>
-      <div class="col-sm-1 results">
-        <a href="/delete/{{event.id}}"  class="delete_event">Delete</a>
-      </div>
-      <div>
-      <input type="hidden" data-id="{{event.id}}" name="event_id" id="event_id">
-      </div>
-    </div>
-    {% endfor %}
-  </div>
+				<!-- Header
+					<header id="header" class="alt"></header>-->
 
-{% endblock %}
+				<!-- Nav -->
+					<nav id="nav">
+					  <img src="images/logo-350px.jpg" width="350px" height="117px" alt=""/>
+            <ul>
+	            <li><a href="#intro" class="active">Introduction</a></li>
+							<li><a href="#meetings">Events</a></li>
+							<li><a href="#cta">Get Started</a></li>
+					  </ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<!-- Introduction -->
+							<section id="intro" class="main">
+								<div class="spotlight">
+									<div class="content">
+										<header class="major">
+											<h2>Welcome to Indivisible Denver</h2>
+										</header>
+										<p>This is a group working in Colorado's Congressional District 1 promoting and fighting for progressive values by engaging with our elected representatives.<br>
+									</div>
+									<span class="image"><img src="images/pic01.jpg" alt="" /></span>
+								</div>
+							</section>
+
+						<!-- First Section -->
+							<section id="meetings" class="main">
+                <header class="major">
+                  <h2>Events</h2>
+                </header>
+                  <div class="row">
+                    <div class="col-sm-7">
+                      <div class="cal1"></div>
+                    </div>
+                    <div class="col-sm-5">
+                      <div class="day_events col-sm-12"></div>
+                        <!-- <div id="show_event" class="event_details"></div><br>
+                        <div id="description" class="event_details"></div>
+                        <span id="time_start" class="event_details"></span>
+                        <span> - </span>
+                        <span id="time_end" class="event_details"></span>
+                        <div id="month" class="event_details"></div>
+                        <div id="date" class="event_details"></div>
+                        <div id="year" class="event_details"></div>
+                        <div id="location_name" class="event_details"></div>
+                        <div id="street" class="event_details"></div>
+                        <div id="city" class="event_details" ></div> -->
+                    </div>
+                  </div>
+							</section>
+
+						<!-- Get Started -->
+							<section id="cta" class="main special">
+								<header class="major">
+									<h2>Get Started!</h2>
+
+								</header>
+								<footer class="major">
+									<ul class="actions">
+										<li><a href="https://www.indivisibleguide.com/download-the-guide" class="button special">Download the Indivisible Guide</a></li>
+										<li><a href="https://www.facebook.com/groups/415832618768955/" class="button">Connect on Facebook</a></li>
+										<li><a href="https://twitter.com/indivisibleden" class="button">Connect on Twitter</a></li>
+									</ul>
+								</footer>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+
+					</footer>
+
+			</div>
+
+			<!-- <script src="assets/js/jquery.scrolly.min.js"></script> -->
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+			<!-- <script src="assets/js/util.js"></script> -->
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+      <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+      <script type="text/javascript" src="/js/display.js"></script>
+      <script type="text/javascript" src="/js/clndr.js"></script>
+	</body>
+</html>

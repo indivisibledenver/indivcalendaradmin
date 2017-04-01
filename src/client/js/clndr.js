@@ -24,7 +24,6 @@
     // what is available globally. While moment is loaded
     // here, the instance can be passed in at config time.
 
-    console.log('you are in the factory');
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['jquery', 'moment'], factory);
@@ -393,7 +392,6 @@
         for (var i = 0; i < offset; i++) {
             days.push(days.shift());
         }
-        console.log('in shiftweekdaylabels: '. days);
 
         return days;
     };

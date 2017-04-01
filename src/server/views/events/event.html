@@ -1,0 +1,116 @@
+{% extends "_admin_template.html" %}
+
+{% block css %}
+  <link rel="stylesheet" href="/css/admin.css">
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="admin_menu">
+      <a href="/event_types" class="admin_link">Event Types Maintenance</a>
+      <a href="/calendar" class="admin_link">View Calendar</a>
+      <a href="/research" class="admin_link">View Research</a>
+      <a href="/membership" class="admin_link">Membership Maintenance</a>
+    </div>
+    <div class="page_title">Event Maintenance</div>
+    <div class="col-md-12">
+      <form>
+        <div class="col-md-4">
+         <label for="event_type">Event Type</label>
+         <select id="event_type" class="option_selected">
+          <option value="">select an event type</option>
+        {% for type in types %}
+          <option value="{{type.event_type_description}}">{{type.event_type}}</option>
+        {% endfor %}
+        </select>
+        <span id="event_type_description_option"></span>
+        <br>
+        <label for="event_name">Event Name</label>
+        <input id="event_name" type="text" name="event_name"><br>
+        <label for="event_date">Date</label>
+        <input type="date" name="date" id="date"><br>
+        <label for="time_start">Starts</label>
+        <input type="time" name="time_start" id="event_start"></br>
+        <label for="time_end">Ends</label>
+        <input type="time" name="time_end" id="event_end"></br>
+      </div>
+      <div class="col-md-4">
+        <label for="location">Place</label>
+        <input type="text" name="location_name" id="location"></br>
+        <label for="street">No. and Street</label>
+        <input type="text" name="street" id="street"></br>
+        <label for="city">City</label>
+        <input type="city" name="city" id="city"></br>
+        <label for="state">State</label>
+        <input type="state" name="state" id="state"></br>
+        <label for="zip">Zip</label>
+        <input type="text" name="zip" id="zip"></br>
+      </div>
+      <div class="col-md-4">
+        <label for="location">Link</label>
+        <input type="text" name="link" id="link"></br>
+        <label for="event_description">Description</label>
+        <textarea name="event_description" id="event_description" rows="4" columns="75"></textarea><br>
+        <input type="button" value="Save" id="add_event_func">
+        <input type="reset" value="Reset"></button>
+      </div>
+      </form>
+    </div>
+    <hr>
+    <br>
+    <div class="row">
+      <div class="headers">
+      <div class="col-md-2">
+        <div class="table_header">Event Name</div>
+      </div>
+      <div class="col-md-2">
+        <div class="table_header">Date</div>
+      </div>
+      <div class="col-md-1">
+        <div class="table_header"> Start</div>
+      </div>
+      <div class="col-md-1">
+        <div class="table_header"> End</div>
+      </div>
+      <div class="col-md-1">
+        <div class="table_header">Location</div>
+      </div>
+      <div class="col-md-3">
+        <div class="table_header">Description</div>
+      </div>
+    </div>
+    </div>
+
+    {% for event in events %}
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="results"><a href="/update/{{event.id}}" class="update_event">{{event.event_name}}</a>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="results">{{event.month}} / {{event.day}} / {{event.year}}</div>
+      </div>
+      <div class="col-sm-1">
+        <div class="results">{{event.time_start}}</div>
+      </div>
+      <div class="col-sm-1">
+        <div class="results">{{event.time_end}}</div>
+      </div>
+      <div class="col-sm-1">
+        <div class="results">{{event.location_name}}</div>
+      </div>
+      <div class="col-sm-3">
+        <div class="results">{{event.description}}</div>
+      </div>
+      <div class="col-sm-1 results">
+        <a href="/delete/{{event.id}}"  class="delete_event">Delete</a>
+      </div>
+      <div>
+      <input type="hidden" data-id="{{event.id}}" name="event_id" id="event_id">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}

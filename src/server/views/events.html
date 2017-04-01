@@ -1,0 +1,84 @@
+{% extends "_admin_template.html" %}
+
+{% block css %}
+  <link rel="stylesheet" href="/css/main.css">
+{% endblock %}
+
+{% block content %}
+
+<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header
+					<header id="header" class="alt"></header>-->
+
+				<!-- Nav -->
+					<nav id="nav">
+
+					<img src="images/logo-350px.jpg" width="350px" height="117px" alt=""/>
+<ul>
+	  <li><a href="#intro" class="active">Introduction</a></li>
+							<li><a href="#meetings">Meetings</a></li>
+							<li><a href="#cta">Get Started</a></li>
+					  </ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Introduction -->
+							<section id="intro" class="main">
+								<div class="spotlight">
+									<div class="content">
+										<header class="major">
+											<h2>Welcome to Indivisible Denver</h2>
+										</header>
+										<p>This is a group working in Colorado's Congressional District 1 promoting and fighting for progressive values by engaging with our elected representatives.<br>
+									</div>
+									<span class="image"><img src="images/pic01.jpg" alt="" /></span>
+								</div>
+							</section>
+
+						<!-- First Section -->
+							<section id="meetings" class="main">
+                {% block calendar %}
+                {% endblock %}
+							</section>
+
+						<!-- Get Started -->
+							<section id="cta" class="main special">
+								<header class="major">
+									<h2>Get Started!</h2>
+
+								</header>
+								<footer class="major">
+									<ul class="actions">
+										<li><a href="https://www.indivisibleguide.com/download-the-guide" class="button special">Download the Indivisible Guide</a></li>
+										<li><a href="https://www.facebook.com/groups/415832618768955/" class="button">Connect on Facebook</a></li>
+										<li><a href="https://twitter.com/indivisibleden" class="button">Connect on Twitter</a></li>
+									</ul>
+								</footer>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<!-- <script src="assets/js/jquery.scrolly.min.js"></script> -->
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+			<!-- <script src="assets/js/util.js"></script> -->
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<!-- <script src="assets/js/main.js"></script> -->
+
+	</body>
+
+
+{% endblock %}

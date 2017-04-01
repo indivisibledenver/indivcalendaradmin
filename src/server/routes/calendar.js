@@ -6,7 +6,6 @@ const knex = require('../db/knex');
 router.post('/month/:id', function(req, res, next) {
 
   var month = parseInt(req.params.id);
-  console.log('I\'m returning the month: ', month);
 
   function pullEvents(tableName){return knex(tableName).select('*');}
 
@@ -17,8 +16,6 @@ router.post('/month/:id', function(req, res, next) {
   ])
   .then((results) => {
     function formatDate(date, index) {
-      console.log('date is: ', date.day);
-      console.log('the date obj is: ', date)
         if(date.day < 10){
           date.day = date.day.toString();
         } else {
@@ -36,17 +33,14 @@ router.post('/month/:id', function(req, res, next) {
         return object;
     }
 
-    console.log('results in calendar: ', results[0]);
     const renderObject = {};
     renderObject.days = results[0].map(formatDate);
-    console.log('here is renderObj thingy: ', renderObject);
 
     res.send(renderObject);
   });
 });
 
 router.get('/day/:id', function(req, res, next) {
-  console.log('the day clicked is: ', req);
 
   function getAll(tableName) {return knex(tableName).select();}
 
@@ -64,7 +58,6 @@ router.get('/day/:id', function(req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-  console.log('i am in the .get of calendar!!!!');
 
   function getAll(tableName) {return knex(tableName).select();}
 
@@ -76,8 +69,7 @@ router.get('/', function (req, res, next) {
   .then((results) => {
     const renderObject = {};
     renderObject.events = results[0];
-    console.log('here are the results from / calendar: ', renderObject.events);
-    res.render('../views/calendar/calendar.html', renderObject);
+    res.render('../views/index.html', renderObject);
   });
 });
 

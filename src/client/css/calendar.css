@@ -13,18 +13,18 @@ a {
   color: blue;
 }
 
-.event-container {
+.event-container{
   height: 58px;
   padding-top: 2px;
   padding-bottom: 2px;
   padding-right: 2px;
   padding-left: 2px;
-  font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 9px "Lucida Grande", Helvetica, Arial, sans-serif;
   border-color: white;
 }
 
-.event-box {
+.event-box > div {
   height: 10px;
   padding: 2px;
-  font: 8px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 7px "Lucida Grande", Helvetica, Arial, sans-serif;
 }

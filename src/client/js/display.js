@@ -2,9 +2,6 @@
 var calendars = {};
 
 $(document).ready( function() {
-    console.info(
-        'Welcome to the CLNDR demo. Click around on the calendars and' +
-        'the console will log different events that fire.');
 
     //Create a date object that will track against the original date in JSON mode as well as the currently viewed date
     var Date_Manager = {};
@@ -13,6 +10,8 @@ $(document).ready( function() {
     Date_Manager.viewed_month = Date_Manager.date.getMonth() + 1; //for the currently viewed month on the calendar
 
     // here is where you will make a db call.
+
+
     var eventArrayTemp = getEvents(Date_Manager.todays_month);
 
     function getEvents(month_num) {
@@ -25,167 +24,170 @@ $(document).ready( function() {
           month: month_num
         },
         success: (result) => {
-          console.log('result from events is: ', result);
+          var eventArray = result.days;
 
-      var tempEvents = result;
-      console.log('tempEvents: ', tempEvents);
+          calendars.clndr1 = $('.cal1').clndr({
+            events: eventArray,
+            clickEvents: {
+                click: function (target) {
 
-    var eventArray = tempEvents.days;
+                    //clear the fields on a click
+                    $('.day_events').html('');
 
-    console.log('eventArray: ', eventArray);
+                    //this is a moment object - here is the attribute that pulls out the formatted date.
+                    $.ajax({
+                      type: 'GET',
+                      url: 'events/day/' + target.date._i,
+                      success: (result) => {
 
-    calendars.clndr1 = $('.cal1').clndr({
-        events: eventArray,
-        clickEvents: {
-            click: function (target) {
-                console.log('here is target: ', target);
-                //this is a moment object - here is the attribute that pulls out the formatted date.
-                $.ajax({
-                  type: 'GET',
-                  url: '/day/' + target.date._i,
-                  success: (result) => {
-                    console.log('results in clickevents: ', result);
+                        if(result.events[0] !== undefined){
+                          console.log('result events length: ', result.events.length);
+                          for (var i = 0; i < result.events.length; i++) {
+                            $('.day_events').append('<div class="day_event">' + result.events[i].event_name + '</div><br>');
 
-                    if(result.events[0] !== undefined){
+                            $('.day_events').append('<div class=".description">' + result.events[i].description + '</div><br>');
 
-                      $('#show_event').html(result.events[0].event_name).addClass('day_event');
+                            $('.day_events').append('<span class=".start">' + result.events[i].time_start + ' - ' + result.events[i].time_end + '</span><br>');
 
-                      $('#description').html(result.events[0].description).addClass('description');
+                            $('.day_events').append('<span class=".location">' + result.events[i].location_name + '</span><br>');
 
-                      $('#time_start').html(result.events[0].time_start).addClass('start');
 
-                      $('#time_end').html(result.events[0].time_end).addClass('end');
+                            $('.day_events').append('<span class=".street">' + result.events[i].street + '</span><br>');
 
-                      $('#location').html(result.events[0].location_name).addClass('location');
+                            $('.day_events').append('<span class=".city">' + result.events[i].city + '</span><br>');
+                          }
+                        } else {
+                          $('#show_event').html("").addClass('day_event');
 
-                      $('#street').html(result.events[0].street).addClass('street');
+                          $('#description').html("").addClass('description');
 
-                      $('#city').html(result.events[0].city).addClass('city');
-                    } else {
-                      $('#show_event').html("").addClass('day_event');
+                          $('#time_start').html("").addClass('start');
 
-                      $('#description').html("").addClass('description');
+                          $('#time_end').html("").addClass('end');
 
-                      $('#time_start').html("").addClass('start');
+                          $('#location').html("").addClass('location');
 
-                      $('#time_end').html("").addClass('end');
+                          $('#street').html("").addClass('street');
 
-                      $('#location').html("").addClass('location');
+                          $('#city').html("").addClass('city');
+                        }
+                      },
+                      error: (error) => {
+                        console.log('you are in the error');
+                      }
+                    });
+                },
+                today: function () {
+                    //
+                    controlStrings = controlStrings.filter (function (value, index, array) {
+                      return array.indexOf (value) == index;
+                    });
 
-                      $('#street').html("").addClass('street');
+                    var controlStrings = eventArray.map(dayOnCalendar);
+                    controlStrings.map(getEventData);
+                },
+                nextMonth: function () {
+                    console.log('Cal-1 next month');
+                    Date_Manager.viewed_month += 1;
+                    console.log('next month: ', Date_Manager);
+                },
+                previousMonth: function () {
+                    console.log('Cal-1 previous month');
 
-                      $('#city').html("").addClass('city');
-                    }
-                  },
-                  error: (error) => {
-                    console.log('you are in the error');
-                  }
-                });
+                },
+                onMonthChange: function () {
+                    console.log('Cal-1 month changed');
+                    console.log('on Month Change: ', Date_Manager);
+                    var controlStrings = eventArray.map(dayOnCalendar);
+
+                    controlStrings = controlStrings.filter (function (value, index, array) {
+                      return array.indexOf (value) == index;
+                    });
+
+                    controlStrings.map(getEventData);
+                },
+                nextYear: function () {
+                    console.log('Cal-1 next year');
+                },
+                previousYear: function () {
+                    console.log('Cal-1 previous year');
+                },
+                onYearChange: function () {
+                    console.log('Cal-1 year changed');
+                },
+                nextInterval: function () {
+                    console.log('Cal-1 next interval');
+                },
+                previousInterval: function () {
+                    console.log('Cal-1 previous interval');
+                },
+                onIntervalChange: function () {
+                    console.log('Cal-1 interval changed');
+                }
             },
-            today: function () {
-                console.log('auto print today Cal-1 today');
+            multiDayEvents: {
+                singleDay: 'date',
+                endDate: 'endDate',
+                startDate: 'startDate'
+            },
+            showAdjacentMonths: true,
+            adjacentDaysChangeMonth: false
+        });
 
-                var controlStrings = eventArray.map(dayOnCalendar);
-                controlStrings.map(getEventData);
-            },
-            nextMonth: function () {
-                console.log('Cal-1 next month');
-                Date_Manager.viewed_month += 1;
-                console.log('next month: ', Date_Manager);
-            },
-            previousMonth: function () {
-                console.log('Cal-1 previous month');
-                Date_Manager.viewed_month = 1;
-                var controlStrings = eventArray.map(dayOnCalendar);
-
-                controlStrings.map(getEventData);
-            },
-            onMonthChange: function () {
-                console.log('Cal-1 month changed');
-                console.log('on Month Change: ', Date_Manager);
-                var controlStrings = eventArray.map(dayOnCalendar);
-
-                controlStrings.map(getEventData);
-            },
-            nextYear: function () {
-                console.log('Cal-1 next year');
-            },
-            previousYear: function () {
-                console.log('Cal-1 previous year');
-            },
-            onYearChange: function () {
-                console.log('Cal-1 year changed');
-            },
-            nextInterval: function () {
-                console.log('Cal-1 next interval');
-            },
-            previousInterval: function () {
-                console.log('Cal-1 previous interval');
-            },
-            onIntervalChange: function () {
-                console.log('Cal-1 interval changed');
+        // Bind all clndrs to the left and right arrow keys
+        $(document).keydown( function(e) {
+            // Left arrow
+            if (e.keyCode === 37) {
+                calendars.clndr1.back();
+                calendars.clndr2.back();
+                calendars.clndr3.back();
             }
-        },
-        multiDayEvents: {
-            singleDay: 'date',
-            endDate: 'endDate',
-            startDate: 'startDate'
-        },
-        showAdjacentMonths: true,
-        adjacentDaysChangeMonth: false
+
+            // Right arrow
+            if (e.keyCode === 39) {
+                calendars.clndr1.forward();
+                calendars.clndr2.forward();
+                calendars.clndr3.forward();
+            }
+        });
+
+        function dayOnCalendar(string) {
+          //calendar-day-2017-03-15
+          return "calendar-day-" + string.date;
+        }
+
+        function getEventData($control) {
+
+          var event_container = 'td.calendar-day-' + $control.substring(13, 23) + ' > div.event-container';
+
+          $.ajax({
+            type: 'GET',
+            url: 'events/day/' + $control.substring(13, 23),
+            success: (result) => {
+              if(result.events[0] !== undefined){
+                for (i = 0; i < result.events.length; i++) {
+                  $(event_container).append('<div>' + result.events[i].event_name.substring(0,12) + '</div><br>')
+                }
+              }
+            },
+            error: (error) => {
+              console.log('you are in the error');
+            }
+          });
+        }//function getEventData
+
+        var controlStrings = eventArray.map(dayOnCalendar);
+
+        controlStrings = controlStrings.filter (function (value, index, array) {
+          return array.indexOf (value) == index;
+        });
+
+        controlStrings.map(getEventData);
+
+      },
+      error: (error) => {
+        console.log('here is the error: ', error);
+      }
     });
-
-    // Bind all clndrs to the left and right arrow keys
-    $(document).keydown( function(e) {
-        // Left arrow
-        if (e.keyCode === 37) {
-            calendars.clndr1.back();
-            calendars.clndr2.back();
-            calendars.clndr3.back();
-        }
-
-        // Right arrow
-        if (e.keyCode === 39) {
-            calendars.clndr1.forward();
-            calendars.clndr2.forward();
-            calendars.clndr3.forward();
-        }
-    });
-
-    function dayOnCalendar(string) {
-      //calendar-day-2017-03-15
-      return "calendar-day-" + string.date;
-    }
-
-    function getEventData($control) {
-      console.log('control: ', $control.substring(13, 23));
-
-      var event_container = 'td.calendar-day-' + $control.substring(13, 23) + ' > div.event-container';
-      //var event_container = 'td.calendar-day-2017-03-16 > div.event-container';
-
-      $.ajax({
-        type: 'GET',
-        url: '/day/' + $control.substring(13, 23),
-        success: (result) => {
-          if(result.events[0] !== undefined){
-            console.log('results.events: ', result.events[0] );
-            $(event_container).html(result.events[0].event_name)
-          }
-        },
-        error: (error) => {
-          console.log('you are in the error');
-        }
-      });
-    }
-
-    var controlStrings = eventArray.map(dayOnCalendar);
-
-    controlStrings.map(getEventData);
-
-  },
-  error: (error) => {
-    console.log('here is the error: ', error);
   }
-});
-}
 });
