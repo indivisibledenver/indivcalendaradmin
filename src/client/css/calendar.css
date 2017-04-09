@@ -26,11 +26,16 @@ a {
 .event-box > div {
   height: 10px;
   padding: 2px;
-  font: 7px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 .event_label {
-  height: 10px;
-  padding: 12px;
-  font: 7px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-weight: bolder;
+  /*height: 10px;*/
+  padding-right: 12px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.event_text{
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }

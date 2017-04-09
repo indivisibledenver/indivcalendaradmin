@@ -112,7 +112,7 @@ router.get('/day/:id', function (req, res, next) {
   month: dateObj.month,
   day: dateObj.day
   })
-  .select('event_name', 'month', 'date', 'year', 'time_start', 'time_end','location_name', 'street', 'city', 'description', 'url');}
+  .select('event_name', 'month', 'date', 'year', 'time_start', 'time_end','location_name', 'street', 'city', 'state', 'description', 'url');}
 
   let getEventsForDay = getAllEventsByDay('events');
 

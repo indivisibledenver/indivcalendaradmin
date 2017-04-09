@@ -42,22 +42,23 @@ $(document).ready( function() {
 
                         if(result.events[0] !== undefined){
                           for (var i = 0; i < result.events.length; i++) {
+
                             $('.day_events').append('<div class="day_event">' + result.events[i].event_name + '</div><br>');
 
-                            $('.day_events').append('<span class=".event_label">When</span><span class=".start">' + result.events[i].time_start + ' - ' + result.events[i].time_end + '</span><br>');
+                            $('.day_events').append('<span class="event_label">When: </span><span class="event_text">' + result.events[i].time_start + ' - ' + result.events[i].time_end + '</span><br>');
 
-                            $('.day_events').append('<span class=".event_label">Description</span><span class=".description">' + result.events[i].description + '</span><br>');
+                            $('.day_events').append('<span class="event_label">Description: </span><span class="event_text">' + result.events[i].description + '</span><br>');
 
-                            $('.day_events').append('<span class=".location">Location ' + result.events[i].location_name + '</span> ');
+                            $('.day_events').append('<span class="event_label">Location: </span><span class="event_text"> ' + result.events[i].location_name + ' - </span>');
 
-                            $('.day_events').append('<span class=".event_label"><span class=".street"> ' + result.events[i].street + '</span>');
+                            $('.day_events').append('<span class="event_text"> ' + result.events[i].street + '</span>');
 
-                            $('.day_events').append('<span class=".city">, ' + result.events[i].city + '</span>');
+                            $('.day_events').append('<span class="event_text">, ' + result.events[i].city + '</span>');
 
-                            $('.day_events').append('<span class=".state">, ' + result.events[i].state + '</span><br>');
+                            $('.day_events').append('<span class="event_text">, ' + result.events[i].state + '</span><br>');
 
                             if(result.events[i].url != null) {
-                              $('.day_events').append('<a class=".url" href=' +         result.events[i].url + '>' + result.events[i].url + '</a><br>');
+                              $('.day_events').append('<a class="event_text" href=' + result.events[i].url + '>' + result.events[i].url + '</a><br>');
                             }
                           }
                         } else {
